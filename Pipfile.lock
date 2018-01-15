@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0cc2a63ce9fae43d7c0a2528daf4b5b6c2cf5d344b8b7c5f2c69cb5e49158f7b"
+            "sha256": "7d6559577ac28d70620944cb7f83c26ac48a8a8f1059b1a475570b12f84719bd"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -35,17 +35,17 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:b6f42c04fd4a502698719e85d690117095d2a413b9b810cfa9e830e5f5007f7e",
-                "sha256:b906a4efd07391d49d38ca504499ce187722c13ba11cd17c4eea6b74f57cf0b2"
+                "sha256:6ec3bc48ce7164cdeccf9325252f09ec73a64dc317cc8b0f51a97cbf61d03ce0",
+                "sha256:f1d5870a0ca4bcacaea02ca338e7761777340a56b09d2fe3c03194b84ce0cb57"
             ],
-            "version": "==1.5.13"
+            "version": "==1.5.14"
         },
         "botocore": {
             "hashes": [
-                "sha256:10af3765a5487aa4b29d271c166a0a71c92846e91c2512364a9e620f55710911",
-                "sha256:269bfecb27fea5f3bdc2293b19015f575a9f135d00b2bde8991f0f598b7d115d"
+                "sha256:adf58e6824c433b9a46aad9409f22a18a19c74f7f10ccdfff104bc201359e638",
+                "sha256:02d360797944f091fb5341a2a51810aa6f44f8b40ac66951c876555e410e5f06"
             ],
-            "version": "==1.8.27"
+            "version": "==1.8.28"
         },
         "bz2file": {
             "hashes": [
@@ -88,12 +88,6 @@
                 "sha256:6a81d4c9aa62caf061cb517b4d9ad1dd300374cd4706997aff9cd6aedd61fc64"
             ],
             "version": "==0.9.3"
-        },
-        "kiner": {
-            "hashes": [
-                "sha256:c2b791e55dc41638004af1d116a60ea42a28627c887d5616fef70a890ff91edd"
-            ],
-            "version": "==0.5.1"
         },
         "psycopg2": {
             "hashes": [
@@ -167,9 +161,9 @@
         },
         "sqlalchemy": {
             "hashes": [
-                "sha256:7dda3e0b1b12215e3bb05368d1abbf7d747112a43738e0a4e6deb466b83fd88e"
+                "sha256:9ede7070d6fd18f28058be88296ed67893e2637465516d6a596cd9afea97b154"
             ],
-            "version": "==1.2.0"
+            "version": "==1.2.1"
         },
         "stripe": {
             "hashes": [
@@ -190,10 +184,10 @@
     "develop": {
         "decorator": {
             "hashes": [
-                "sha256:95a26b17806e284452bfd97fa20aa1e8cb4ee23542bda4dbac5e4562aa1642cd",
-                "sha256:7cb64d38cb8002971710c8899fbdfb859a23a364b7c99dab19d1f719c2ba16b5"
+                "sha256:94d1d8905f5010d74bbbd86c30471255661a14187c45f8d7f3e5aa8540fdb2e5",
+                "sha256:7d46dd9f3ea1cf5f06ee0e4e1277ae618cf48dfb10ada7c8427cd46c42702a0e"
             ],
-            "version": "==4.1.2"
+            "version": "==4.2.1"
         },
         "ipython": {
             "hashes": [

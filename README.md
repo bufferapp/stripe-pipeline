@@ -19,3 +19,30 @@ event types at some point
 used
 - More robust error handling
 
+
+## Setup
+
+1. Copy the `.env_template` file:
+```
+    cp .env_template .env
+```
+
+2. Fill out the `.env` file. You'll need Redshift connection details and credentials, AWS credentials and an S3 bucket location, as well as a Stripe API key
+
+3. Use pipenv to set up an environment and install all the dependencies
+
+```
+pip install pipenv #if you don't have it already
+pipenv update
+pipenv shell
+```
+
+## Usage
+
+After completing the setup, you should be able to run the crawler!
+
+```
+./crawler.py
+```
+
+By default, this will backfill all events from the last 180 days

@@ -11,7 +11,6 @@ sqlalchemy = "*"
 "psycopg2" = "*"
 python-dateutil = "*"
 "boto3" = "*"
-kiner = "*"
 smart-open = "*"
 
 
