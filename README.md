@@ -37,6 +37,8 @@ pipenv update
 pipenv shell
 ```
 
+4. Create the table schema if it doesn't exist. Currently the only table to create is in `redshift/subscription_events.sql`
+
 ## Usage
 
 After completing the setup, you should be able to run the crawler!
