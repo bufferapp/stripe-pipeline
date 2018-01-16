@@ -12,6 +12,7 @@ sqlalchemy = "*"
 python-dateutil = "*"
 "boto3" = "*"
 smart-open = "*"
+decorator = "*"
 
 
 [dev-packages]
