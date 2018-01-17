@@ -33,7 +33,7 @@ def humanbytes(B):
 
 class ChunkWriter:
     def __init__(self, schema_name=redshift.OUTPUT_TABLE_SCHEMA,
-                 table_name=redshift.OUTPUT_TABLE_NAME, chunk_size=25*MB):
+                 table_name=redshift.OUTPUT_TABLE_NAME, chunk_size=10*MB):
         self.chunk_processed_size = 0
         self.target_chunk_size = chunk_size
         self.schema_name = schema_name

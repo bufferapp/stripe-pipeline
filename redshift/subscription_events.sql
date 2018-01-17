@@ -50,7 +50,7 @@ create table "buda_stripe"."subscription_events"
 	,"previous_subscription_cancel_at_period_end" boolean
 	,"previous_subscription_canceled_at" timestamp without time zone   encode lzo
 	,"previous_subscription_quantity" integer   encode lzo
-	,"pending_webhooks" boolean
+	,"pending_webhooks" integer encode lzo
 )
 diststyle even
 ;

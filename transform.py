@@ -2,6 +2,11 @@ from field_mapper import FieldMapper
 
 
 def map_subscription(input, output, prefix):
+    sub_plan = input.get('plan')
+
+    if sub_plan:
+        map_plan(sub_plan, output, '{}_plan'.format(prefix))
+
     return (FieldMapper(input, output, prefix)
             .map('id')
             .map_ts('created')
@@ -22,7 +27,7 @@ def map_subscription(input, output, prefix):
 def map_plan(input, output, prefix):
     return (FieldMapper(input, output, prefix)
             .map('id')
-            .map('plan_amount')
+            .map('amount')
             .map_ts('created')
             .map('currency')
             .map('interval')
@@ -36,7 +41,6 @@ def transform_subscription_event(event):
     event_request = event.get('request')
 
     sub = event.data.object
-    sub_plan = sub.get('plan')
     previous_sub = event.data.get('previous_attributes')
     output = {}
 
@@ -52,9 +56,6 @@ def transform_subscription_event(event):
         FieldMapper(event_request, output).map('id', 'request')
 
     map_subscription(sub, output, 'subscription')
-
-    if sub_plan:
-        map_plan(sub_plan, output, 'subscription_plan')
 
     if previous_sub:
         map_subscription(previous_sub, output, 'previous_subscription')

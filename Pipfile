@@ -13,6 +13,8 @@ python-dateutil = "*"
 "boto3" = "*"
 smart-open = "*"
 decorator = "*"
+click = "*"
+retrying = "*"
 
 
 [dev-packages]
