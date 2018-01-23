@@ -5,8 +5,8 @@ import stripe_events
 from datetime import datetime
 from dateutil import parser
 import click
-import transform
-import write_data
+from write_data import MB
+from process import SubscriptionEventsProcessor
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -19,12 +19,12 @@ def cli():
     pass
 
 
-def run_backfill(start, end, chunk_size):
+def run_backfill(start=MIDNIGHT_TODAY, end=datetime.now(), chunk_size=10):
     events = stripe_events.stripe_events_for_range(start, end)
+    chunk_size = chunk_size * MB
 
-    with write_data.ChunkWriter(chunk_size=chunk_size*write_data.MB) as writer:
-        for i, event in enumerate(events):
-            writer.write(transform.transform_subscription_event(event))
+    processor = SubscriptionEventsProcessor(events, chunk_size)
+    processor.process_events()
 
 
 @click.command('backfill')

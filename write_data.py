@@ -32,8 +32,8 @@ def humanbytes(B):
 
 
 class ChunkWriter:
-    def __init__(self, schema_name=redshift.OUTPUT_TABLE_SCHEMA,
-                 table_name=redshift.OUTPUT_TABLE_NAME, chunk_size=10*MB):
+    def __init__(self, table_name, schema_name=redshift.OUTPUT_TABLE_SCHEMA,
+                 chunk_size=10*MB):
         self.chunk_processed_size = 0
         self.target_chunk_size = chunk_size
         self.schema_name = schema_name
@@ -52,7 +52,7 @@ class ChunkWriter:
         self.s3_url = s3.get_chunk_file_url(self.full_table_name)
         return s3.open(self.s3_url)
 
-    def write(self, record):
+    def write_record(self, record):
         if self.chunk_processed_size > self.target_chunk_size:
             self.flush()
 
@@ -60,6 +60,10 @@ class ChunkWriter:
         outsize = sys.getsizeof(outstring)
         self.chunk_processed_size = self.chunk_processed_size + outsize
         self.output.write(outstring)
+
+    def write_records(self, records):
+        for record in records:
+            self.write_record(record)
 
     def flush(self):
         self.output.close()
