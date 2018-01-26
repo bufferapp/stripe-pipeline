@@ -44,7 +44,11 @@ pipenv shell
 After completing the setup, you should be able to run the crawler!
 
 ```
-./crawler.py
+./stripe_pipeline/crawler.py run
 ```
 
-By default, this will backfill all events from the last 180 days
+
+The run command will query the database to find the last date of events
+in the subscription events table. It will then backfill from that date
+up until now, after which it will keep polling stripe for new events
+every minute and load them into the pipeline.

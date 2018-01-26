@@ -60,3 +60,11 @@ def copy(schema_name, table_name, s3_url):
     with sa_engine.begin() as con:
         for stmt in queue:
             con.execute(stmt)
+
+
+def get_latest_timestamp():
+        query = 'select max(created_at) from {}.{}'.format(
+            OUTPUT_TABLE_SCHEMA, OUTPUT_TABLE_NAME)
+        engine = get_engine()
+        result = engine.execute(query)
+        return list(result)[0][0]

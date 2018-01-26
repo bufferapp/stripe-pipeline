@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 import logging
-import stripe_events
-from datetime import datetime
+import time
+from datetime import datetime, timedelta
 from dateutil import parser
 import click
+import stripe_events
 from write_data import MB
+import redshift
 from process import SubscriptionEventsProcessor
 
 logger = logging.getLogger()
@@ -14,17 +16,17 @@ logger.setLevel(logging.INFO)
 MIDNIGHT_TODAY = datetime.now().replace(minute=0, second=0, microsecond=0)
 
 
-@click.group()
-def cli():
-    pass
-
-
 def run_backfill(start=MIDNIGHT_TODAY, end=datetime.now(), chunk_size=10):
     events = stripe_events.stripe_events_for_range(start, end)
     chunk_size = chunk_size * MB
 
     processor = SubscriptionEventsProcessor(events, chunk_size)
     processor.process_events()
+
+
+@click.group()
+def cli():
+    pass
 
 
 @click.command('backfill')
@@ -43,6 +45,25 @@ def backfill(start, end, chunk_size):
     run_backfill(start, end, chunk_size)
 
 
+@click.command('run')
+@click.option('--chunk-size', default=10,
+              help='The size (mb) of chunks to write data to Redshift')
+def run(chunk_size):
+    while(True):
+        logger.info("Fetching the last seen event timestamp")
+        start = redshift.get_latest_timestamp()
+
+        start = start - timedelta(seconds=1)  # 1s offset to avoid missing data
+        end = datetime.now()
+        run_backfill(start, end, chunk_size)
+
+        logger.info("Loaded events starting from {}.".format(start))
+        if (datetime.now() - end).total_seconds() < 60:
+            logger.info("Last backfill within 1 minute. Sleeping for 1 minute")
+            time.sleep(60)  # Sleep for a minute before checking for new data
+
+
+cli.add_command(run)
 cli.add_command(backfill)
 
 if __name__ == '__main__':
