@@ -44,11 +44,12 @@ pipenv shell
 After completing the setup, you should be able to run the crawler!
 
 ```
-./stripe_pipeline/crawler.py run
+stripe-pipeline crawler run
 ```
 
 
-The run command will query the database to find the last date of events
-in the subscription events table. It will then backfill from that date
-up until now, after which it will keep polling stripe for new events
+The `crawler run` command will query the database to find the last date an event was saved
+in the subscription events table.
+
+It will then backfill from that date up until now, after which it will keep polling stripe for new events
 every minute and load them into the pipeline.

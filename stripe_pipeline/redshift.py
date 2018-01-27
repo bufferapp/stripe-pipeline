@@ -2,7 +2,7 @@ import os
 from retrying import retry
 from random import randint
 from sqlalchemy import create_engine
-import s3
+from stripe_pipeline import s3
 
 OUTPUT_TABLE_NAME = 'subscription_events'
 OUTPUT_TABLE_SCHEMA = 'buda_stripe'

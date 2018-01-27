@@ -1,14 +1,12 @@
-#!/usr/bin/env python
-
 import logging
 import time
 from datetime import datetime, timedelta
 from dateutil import parser
 import click
-import stripe_events
-from write_data import MB
-import redshift
-from process import SubscriptionEventsProcessor
+from stripe_pipeline import stripe_events
+from stripe_pipeline import redshift
+from stripe_pipeline.write_data import MB
+from stripe_pipeline.process import SubscriptionEventsProcessor
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -22,11 +20,6 @@ def run_backfill(start=MIDNIGHT_TODAY, end=datetime.now(), chunk_size=10):
 
     processor = SubscriptionEventsProcessor(events, chunk_size)
     processor.process_events()
-
-
-@click.group()
-def cli():
-    pass
 
 
 @click.command('backfill')
@@ -63,8 +56,10 @@ def run(chunk_size):
             time.sleep(60)  # Sleep for a minute before checking for new data
 
 
-cli.add_command(run)
-cli.add_command(backfill)
+@click.group('crawler')
+def crawler():
+    pass
 
-if __name__ == '__main__':
-    cli()
+
+crawler.add_command(run)
+crawler.add_command(backfill)
