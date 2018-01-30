@@ -14,6 +14,7 @@ help:
 	@echo -e "  rund            Execute the crawler in a Docker container"
 	@echo -e "  push            Push crawler Docker image to the registry"
 	@echo -e "  deploy          Deploy the crawler to Kubernetes"
+	@echo -e "  logs            Display the logs of the running Kubernetes application"
 
 .PHONY: deps
 deps:
@@ -28,6 +29,10 @@ init: deps
 run:
 	@pipenv run stripe-pipeline crawler run
 
+.PHONY: console
+console:
+	@pipenv run ipython
+
 .PHONY: image
 image:
 	@docker build -t $(IMAGE_NAME) .
@@ -40,11 +45,16 @@ rund: image
 push: image
 	@docker push $(IMAGE_NAME)
 
-.PHONY: deploy
-deploy: push
-	echo "Not implemented yet!"
-	#@kubectl apply -f crawler.deployment.yaml
+.PHONY: secrets
+secrets: init
+	@pipenv run ./kube/make_secrets.py > ./kube/crawler.secrets.yaml
+	@kubectl apply -f kube/crawler.secrets.yaml
 
-.PHONY: console
-console:
-	@pipenv run ipython
+
+.PHONY: deploy
+deploy: push secrets
+	@kubectl apply -f kube/crawler.deployment.yaml
+
+.PHONY: logs
+logs:
+	@kubectl logs -l app=stripe-pipeline-crawler
