@@ -71,9 +71,9 @@ make rund
 
 To deploy the project to Kubernetes, make sure you have kubectl set up with access to your cluster.
 
-You also need to have the secrets to set up in Kubernetes. If you already have a `.env` file with the right credentials and ran the `make init` command, this will all be taken care of. 
+You also need to have the needed secrets to be set up in Kubernetes. If you already have a `.env` file with the right credentials and ran the `make init` command, this will all be taken care of. 
 
-Otherwise we'll expect you to create secret files matching the `kube/*.secret.yaml.template` files.
+Otherwise we'll expect you to create secret configuration files matching the `kube/*.secret.yaml.template` files (without the `.template` extension, these files will ignored by git).
 
 To deploy, all you need is:
 
