@@ -73,7 +73,7 @@ To deploy the project to Kubernetes, make sure you have kubectl set up with acce
 
 You also need to have the needed secrets to be set up in Kubernetes. If you already have a `.env` file with the right credentials and ran the `make init` command, this will all be taken care of. 
 
-Otherwise we'll expect you to create secret configuration files matching the `kube/*.secret.yaml.template` files (without the `.template` extension, these files will ignored by git).
+Otherwise we'll expect you to create secret configuration files matching the `kube/*.secret.yaml.template` files (without the `.template` extension, these files will ignored by git). Remember that you'll also need to base64 encode the values of each secret.
 
 To deploy, all you need is:
 
