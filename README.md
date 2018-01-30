@@ -29,12 +29,10 @@ used
 
 2. Fill out the `.env` file. You'll need Redshift connection details and credentials, AWS credentials and an S3 bucket location, as well as a Stripe API key
 
-3. Use pipenv to set up an environment and install all the dependencies
+3. Set up a dev environment and install all the dependencies
 
 ```
-pip install pipenv #if you don't have it already
-pipenv update
-pipenv shell
+make init
 ```
 
 4. Create the table schema if it doesn't exist. Currently the only table to create is in `redshift/subscription_events.sql`
@@ -47,9 +45,24 @@ After completing the setup, you should be able to run the crawler!
 stripe-pipeline crawler run
 ```
 
+Or:
+```
+make run
+```
+
 
 The `crawler run` command will query the database to find the last date an event was saved
 in the subscription events table.
 
 It will then backfill from that date up until now, after which it will keep polling stripe for new events
 every minute and load them into the pipeline.
+
+### Docker
+
+The whole application can also be run within a Docker container.
+To build a image and run the crawler in Docker:
+
+```
+make rund
+
+```
