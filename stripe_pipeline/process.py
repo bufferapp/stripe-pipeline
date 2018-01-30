@@ -1,7 +1,7 @@
-from transform import transform_subscription_event, \
+from stripe_pipeline.transform import transform_subscription_event, \
      transform_subscription_event_items
 
-from write_data import ChunkWriter
+from stripe_pipeline.write_data import ChunkWriter
 
 
 class SubscriptionEventsProcessor():

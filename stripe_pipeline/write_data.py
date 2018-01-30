@@ -1,8 +1,8 @@
 import sys
 import logging
 import json
-import redshift
-import s3
+from stripe_pipeline import redshift
+from stripe_pipeline import s3
 
 logging.basicConfig()
 

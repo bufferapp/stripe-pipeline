@@ -1,5 +1,5 @@
 import hashlib
-from field_mapper import FieldMapper
+from stripe_pipeline.field_mapper import FieldMapper
 
 
 def hash(*fields):

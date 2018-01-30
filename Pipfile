@@ -6,15 +6,7 @@ verify_ssl = true
 
 [packages]
 
-stripe = "*"
-sqlalchemy = "*"
-"psycopg2" = "*"
-python-dateutil = "*"
-"boto3" = "*"
-smart-open = "*"
-decorator = "*"
-click = "*"
-retrying = "*"
+"e1839a8" = {path = ".", editable = true}
 
 
 [dev-packages]
