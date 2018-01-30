@@ -18,4 +18,8 @@ setup(name='stripe_pipeline',
           'click',
           'retrying'
       ],
-      scripts=['bin/stripe-pipeline'])
+      entry_points={
+        'console_scripts': [
+            'stripe-pipeline=stripe_pipeline.cli.cli'
+        ]
+      })
