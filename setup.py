@@ -20,6 +20,6 @@ setup(name='stripe_pipeline',
       ],
       entry_points={
         'console_scripts': [
-            'stripe-pipeline=stripe_pipeline.cli.cli'
+            'stripe-pipeline=stripe_pipeline.cli:main'
         ]
       })

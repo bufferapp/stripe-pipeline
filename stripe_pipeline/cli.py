@@ -5,11 +5,11 @@ from stripe_pipeline.crawler import crawler
 
 
 @click.group()
-def cli():
+def main():
     pass
 
 
-cli.add_command(crawler)
+main.add_command(crawler)
 
 if __name__ == '__main__':
-    cli()
+    main()
