@@ -64,6 +64,6 @@ spec:
         image: bufferapp/stripe-pipeline:0.1.0
         imagePullPolicy: Always
         name: stripe-pipeline
-        args: ["crawler", "run"]
+        args: ["crawler", "run", "--chunk-size", "50"]
       imagePullSecrets:
       - name: dockerhub
