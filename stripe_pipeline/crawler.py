@@ -22,22 +22,6 @@ def run_events_backfill(config, start=MIDNIGHT_TODAY, end=datetime.now(), chunk_
     processor = config['processor'](events, chunk_size)
     processor.process_events()
 
-
-def run_subscription_events_backfill(start=MIDNIGHT_TODAY, end=datetime.now(), chunk_size=10):
-    events = stripe_events.stripe_events_for_range(start, end)
-    chunk_size = chunk_size * MB
-
-    processor = SubscriptionEventsProcessor(events, chunk_size)
-    processor.process_events()
-
-
-def run_charge_events_backfill(start=MIDNIGHT_TODAY, end=datetime.now(), chunk_size=10):
-    events = stripe_events.stripe_events_for_range(start, end, 'charge.*')
-    chunk_size = chunk_size * MB
-
-    processor = ChargeEventsProcessor(events, chunk_size)
-    processor.process_events()
-
 event_type_config = {
     'subscriptions': {
         'table_name': 'subscription_events',
