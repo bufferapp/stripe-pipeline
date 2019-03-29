@@ -72,14 +72,6 @@ def backfill(event_type, start, end, chunk_size):
     else:
         run_events_backfill(config)
 
-    # if event_type == 'subscriptions':
-    #     run_subscription_events_backfill(start, end, chunk_size)
-    # elif event_type == 'charges':
-    #     run_charge_events_backfill(start, end, chunk_size)
-    # else:
-    #     click.echo(f'Can''t backfill events of type {event_type}')
-
-
 @click.command('run')
 @click.option('--event-type', type=click.Choice(['subscriptions', 'charges']),
     default='subscription')
