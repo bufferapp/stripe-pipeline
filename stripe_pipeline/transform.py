@@ -102,3 +102,43 @@ def transform_subscription_event_items(event):
         output_records.append(record_output)
 
     return output_records
+
+def transform_charge_event(event):
+    event_request = event.get('request')
+
+    charge = event.data.object
+    event_output = {}
+
+    (FieldMapper(event, event_output)
+        .map('id')
+        .map('api_version')
+        .map_ts('created')
+        .map('type')
+        .map('livemode')
+        .map('pending_webhooks'))
+
+    if event_request:
+        FieldMapper(event_request, event_output).map('id', 'request')
+
+    map_charge(charge, event_output, 'charge')
+
+    return event_output
+
+def map_charge(input, output, prefix):
+    return (FieldMapper(input, output, prefix)
+            .map('id')
+            .map('amount')
+            .map_ts('created')
+            .map('currency')
+            .map('customer')
+            .map('description')
+            .map('destination')
+            .map('dispute')
+            .map('failure_code')
+            .map('failure_message')
+            .map('invoice')
+            .map('paid')
+            .map('receipt_number')
+            .map('refunded')
+            .map('statement_descriptor')
+            .map('status'))

@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: stripe-pipeline-crawler
+  name: stripe-pipeline-crawler-charges
 spec:
   replicas: 1
   selector:
@@ -61,9 +61,9 @@ spec:
             secretKeyRef:
               name: stripe-pipeline
               key: aws-secret-access-key
-        image: bufferapp/stripe-pipeline:0.1.0
+        image: bufferapp/stripe-pipeline:0.1.1
         imagePullPolicy: Always
         name: stripe-pipeline
-        args: ["crawler", "run", "--chunk-size", "50"]
+        args: ["crawler", "run", "--chunk-size", "50", "--event-type", "charges"]
       imagePullSecrets:
       - name: dockerhub

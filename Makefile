@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-IMAGE_NAME := bufferapp/stripe-pipeline:0.1.0
+IMAGE_NAME := bufferapp/stripe-pipeline:0.1.1
 
 .PHONY: help
 help:
@@ -52,8 +52,9 @@ secrets: init
 
 
 .PHONY: deploy
-deploy: push secrets
-	@kubectl apply -f kube/crawler.deployment.yaml
+deploy: push #secrets
+	@kubectl apply -f kube/crawler.charges.deployment.yaml
+	@kubectl apply -f kube/crawler.subscriptions.deployment.yaml
 
 .PHONY: logs
 logs:

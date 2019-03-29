@@ -1,5 +1,6 @@
 from stripe_pipeline.transform import transform_subscription_event, \
-     transform_subscription_event_items
+     transform_subscription_event_items, \
+     transform_charge_event
 
 from stripe_pipeline.write_data import ChunkWriter
 
@@ -22,4 +23,21 @@ class SubscriptionEventsProcessor():
 
                 event_items.write_records(
                     transform_subscription_event_items(event)
+                )
+
+
+class ChargeEventsProcessor():
+    def __init__(self, events, chunk_size):
+        self.events = events
+        self.chunk_size = chunk_size
+
+    def writer(self, name):
+        return ChunkWriter(name, chunk_size=self.chunk_size)
+
+    def process_events(self):
+        print('processing charge events')
+        with self.writer('charge_events') as charge_events:
+            for event in self.events:
+                charge_events.write_record(
+                    transform_charge_event(event)
                 )

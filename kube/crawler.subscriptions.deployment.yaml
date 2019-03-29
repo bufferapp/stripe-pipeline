@@ -1,0 +1,69 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: stripe-pipeline-crawler-subscriptions
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stripe-pipeline-crawler
+      release: stripe-pipeline-crawler
+  template:
+    metadata:
+      labels:
+        app: stripe-pipeline-crawler
+        release: stripe-pipeline-crawler
+    spec:
+      containers:
+      - env:
+        - name: STRIPE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: stripe-api-key
+        - name: REDSHIFT_COPY_S3_ROOT
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: redshift-copy-s3-root
+        - name: REDSHIFT_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: redshift-database
+        - name: REDSHIFT_USER
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: redshift-user
+        - name: REDSHIFT_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: redshift-endpoint
+        - name: REDSHIFT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: redshift-password
+        - name: REDSHIFT_DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: redshift-port
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: stripe-pipeline
+              key: aws-secret-access-key
+        image: bufferapp/stripe-pipeline:0.1.1
+        imagePullPolicy: Always
+        name: stripe-pipeline
+        args: ["crawler", "run", "--chunk-size", "50", "--event-type", "subscriptions"]
+      imagePullSecrets:
+      - name: dockerhub
