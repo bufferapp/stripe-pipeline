@@ -105,3 +105,6 @@ ENV/
 
 # K8s secrets
 *.secrets.yaml
+
+#VS Code
+.vscode

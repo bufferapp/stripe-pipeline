@@ -4,7 +4,6 @@ from random import randint
 from sqlalchemy import create_engine
 from stripe_pipeline import s3
 
-OUTPUT_TABLE_NAME = 'subscription_events'
 OUTPUT_TABLE_SCHEMA = 'buda_stripe'
 MIN_RETRY_WAIT = 1000*30
 MAX_RETRY_WAIT = MIN_RETRY_WAIT*3
@@ -62,9 +61,9 @@ def copy(schema_name, table_name, s3_url):
             con.execute(stmt)
 
 
-def get_latest_timestamp():
+def get_latest_timestamp(table_name):
         query = 'select max(created_at) from {}.{}'.format(
-            OUTPUT_TABLE_SCHEMA, OUTPUT_TABLE_NAME)
+            OUTPUT_TABLE_SCHEMA, table_name)
         engine = get_engine()
         result = engine.execute(query)
         return list(result)[0][0]
